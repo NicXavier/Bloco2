@@ -1,50 +1,52 @@
-create database db_pizzaria_legal;
+DROP DATABASE IF EXISTS db_pizzaria_legal;
+CREATE DATABASE IF NOT EXISTS db_pizzaria_legal
+DEFAULT CHARACTER SET utf8
+DEFAULT COLLATE utf8_general_ci;
 
-use db_pizzaria_legal;
+USE db_pizzaria_legal;
 
-create table tb_categoria(
-id bigint auto_increment,
-pizza varchar (100) not null,
-bebida varchar (100),
-primary key (id)
+CREATE TABLE tb_categoria(
+id BIGINT AUTO_INCREMENT PRIMARY KEY,
+pizza VARCHAR (100) NOT NULL,
+bebida VARCHAR (100)
 );
 
-select * from tb_categoria;
+SELECT * FROM tb_categoria;
 
-insert into tb_categoria (pizza,bebida) values ("Pepperoni","Coca-Cola");
-insert into tb_categoria (pizza,bebida) values ("Marguerita","Fanta Uva");
-insert into tb_categoria (pizza,bebida) values ("Portuguesa","Fanta Laranja");
-insert into tb_categoria (pizza,bebida) values ("Brigadeiro","Guaraná Antarctica");
-insert into tb_categoria (pizza,bebida) values ("Romeu e Julieta","Sprite");
+INSERT INTO tb_categoria (pizza,bebida) VALUES ("Pepperoni","Coca-Cola"),
+ ("Marguerita","Fanta Uva"),
+ ("Portuguesa","Fanta Laranja"),
+ ("Brigadeiro","Guaraná Antarctica"),
+ ("Romeu e Julieta","Sprite");
 
-create table tb_pizza(
-id bigint auto_increment,
-borda varchar(100) not null,
-tipo varchar(100) not null,
-observação varchar (200) not null,
-valor_total decimal (6,2),
-categoria_id bigint,
-primary key (id),
-FOREIGN KEY (categoria_id) references tb_categoria (id)
+CREATE TABLE tb_pizza(
+id BIGINT AUTO_INCREMENT PRIMARY KEY,
+borda VARCHAR(100) NOT NULL,
+tipo VARCHAR(100) NOT NULL,
+observação VARCHAR (200) NOT NULL,
+valor_total DECIMAL (6,2),
+categoria_id BIGINT,
+FOREIGN KEY (categoria_id) REFERENCES tb_categoria (id)
 );
 
-select * from tb_pizza;
+SELECT * FROM tb_pizza;
 
-insert into tb_pizza (borda,tipo,observação,valor_total,categoria_id) values ("Catupiry","Brotinho","Pepperoni extra",45.00,1);
-insert into tb_pizza (borda,tipo,observação,valor_total,categoria_id) values ("Catupiry","Tradicional","Pepperoni extra",65.00,1);
-insert into tb_pizza (borda,tipo,observação,valor_total,categoria_id) values ("Catupiry","Tradicional","Manjericao extra",60.00,2);
-insert into tb_pizza (borda,tipo,observação,valor_total,categoria_id) values ("Cheddar","Brotinho","Sem observações",40.00,2);
-insert into tb_pizza (borda,tipo,observação,valor_total,categoria_id) values ("Cheddar","Tradicional","Sem ovo",60.00,3);
-insert into tb_pizza (borda,tipo,observação,valor_total,categoria_id) values ("Sem borda","Brotinho","Chocolate extra",55.00,4);
-insert into tb_pizza (borda,tipo,observação,valor_total,categoria_id) values ("Sem borda","Brotinho","Goiabada extra",50.00,5);
-insert into tb_pizza (borda,tipo,observação,valor_total,categoria_id) values ("Sem borda","Brotinho","Queijo extra",50.00,5);
+INSERT INTO tb_pizza (borda,tipo,observação,valor_total,categoria_id) VALUES 
+ ("Catupiry","Brotinho","Pepperoni extra",45.00,1),
+ ("Catupiry","Tradicional","Pepperoni extra",65.00,1),
+ ("Catupiry","Tradicional","Manjericao extra",60.00,2),
+ ("Cheddar","Brotinho","Sem observações",40.00,2),
+ ("Cheddar","Tradicional","Sem ovo",60.00,3),
+ ("Sem borda","Brotinho","Chocolate extra",55.00,4),
+ ("Sem borda","Brotinho","Goiabada extra",50.00,5),
+ ("Sem borda","Brotinho","Queijo extra",50.00,5);
 
-select * from tb_pizza where valor_total > 45.00;
+SELECT * FROM tb_pizza WHERE valor_total > 45.00;
 
-select * from tb_pizza where valor_total between 29.00 and 60.00;
+SELECT * FROM tb_pizza WHERE valor_total BETWEEN 29.00 AND 60.00;
 
-select * from tb_categoria where pizza like "%c%";
+SELECT * FROM tb_categoria WHERE pizza LIKE "%c%";
 
-select * from tb_pizza inner join tb_categoria on tb_categoria.id = tb_pizza.categoria_id;
+SELECT * FROM tb_pizza INNER JOIN tb_categoria ON tb_categoria.id = tb_pizza.categoria_id;
 
-select * from tb_pizza where tipo like "Brotinho";
+SELECT * FROM tb_pizza WHERE tipo LIKE "Brotinho";
