@@ -25,9 +25,11 @@ borda VARCHAR(100) NOT NULL,
 tipo VARCHAR(100) NOT NULL,
 observação VARCHAR (200) NOT NULL,
 valor_total DECIMAL (6,2),
-categoria_id BIGINT,
-FOREIGN KEY (categoria_id) REFERENCES tb_categoria (id)
+categoria_id BIGINT
 );
+
+ ALTER TABLE tb_pizza ADD CONSTRAINT fk_categoria_id
+FOREIGN KEY (categoria_id) REFERENCES tb_categoria (id);
 
 SELECT * FROM tb_pizza;
 
@@ -47,6 +49,8 @@ SELECT * FROM tb_pizza WHERE valor_total BETWEEN 29.00 AND 60.00;
 
 SELECT * FROM tb_categoria WHERE pizza LIKE "%c%";
 
-SELECT * FROM tb_pizza INNER JOIN tb_categoria ON tb_categoria.id = tb_pizza.categoria_id;
+SELECT pizza, observação, valor_total AS total
+FROM tb_pizza 
+INNER JOIN tb_categoria ON tb_categoria.id = tb_pizza.categoria_id;
 
 SELECT * FROM tb_pizza WHERE tipo LIKE "Brotinho";
